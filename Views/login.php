@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="../Util/css/Css/all.min.css">
   <link rel="stylesheet" href="../Util/css/adminlte.min.css">
+  <link rel="stylesheet" href="../Util/css/toastr.min.css">
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -52,7 +53,7 @@
         <a href="">Olvidé mi contraseña</a>
       </p>
       <p class="mb-0">
-        <a href="" class="text-center">Registrarse</a>
+        <a href="register.php" class="text-center">Registrarse</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -68,5 +69,6 @@
 <script src="../Util/js/adminlte.min.js"></script>
 <!-- LLamada al codigo de login js -->
 <script src="login.js"></script>
+<script src="../Util/js/toastr.min.js"></script>
 </body>
 </html>
