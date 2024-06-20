@@ -6,8 +6,8 @@
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="Util/css/Css/all.min.css">
-  <link rel="stylesheet" href="Util/css/adminlte.min.css">
+  <link rel="stylesheet" href="../Util/css/Css/all.min.css">
+  <link rel="stylesheet" href="../Util/css/adminlte.min.css">
   
 </head>
 <body class="hold-transition sidebar-mini">
@@ -129,12 +129,12 @@
         </div>
       </li>
       <li class="nav-item" id="nav_register">
-        <a class="nav-link" href="Views/register.php" role="button">
+        <a class="nav-link" href="register.php" role="button">
           <i class="fas fa-user-plus"></i><span>&nbsp;&nbsp;Registrarse</span>
         </a>
       </li>
       <li class="nav-item" id="nav_login">
-        <a class="nav-link" href="Views/login.php" role="button">
+        <a class="nav-link" href="login.php" role="button">
           <i class="far fa-user"></i><span>&nbsp;&nbsp;Iniciar sesión</span>
         </a>
       </li>
@@ -144,9 +144,9 @@
                 <span id="usuario_nav">Usuario logeado</span>
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="Views/mi_perfil.php"><i class="fas fa-user-cog"></i> Mi perfil</a></li>
+                <li><a class="dropdown-item" href="mi_perfil.php"><i class="fas fa-user-cog"></i> Mi perfil</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-basket"></i>Mis pedidos</a></li>
-                <li><a class="dropdown-item" href="Controllers/logout.php"><i class="fas fa-user-times"></i>Cerrar sesion</a></li>
+                <li><a class="dropdown-item" href="../Controllers/logout.php"><i class="fas fa-user-times"></i>Cerrar sesion</a></li>
               </ul>
       </li>
     </ul>
@@ -156,8 +156,8 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="Util/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="../index.php" class="brand-link">
+      <img src="../Util/img/logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">E-commerce</span>
     </a>
 
@@ -166,7 +166,7 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="Util/img/user_default.png" class="img-circle elevation-2" alt="User Image" id="avatar_menu">
+          <img src="../Util/img/user_default.png" class="img-circle elevation-2" alt="User Image" id="avatar_menu">
         </div>
         <div class="info">
           <a href="#" class="d-block" id="usuario_menu"></a>

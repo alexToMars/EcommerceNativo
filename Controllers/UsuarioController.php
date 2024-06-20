@@ -1,17 +1,16 @@
 <?php
-include_once("../Models/Usuario.php");
+include_once ("../Models/Usuario.php");
 $usuario = new Usuario();
 session_start();
 
 if (isset($_POST['funcion'])) {
     $funcion = $_POST['funcion'];
-    
+
     if ($funcion == 'login') {
         $user = $_POST['user'];
         $pass = $_POST['password'];
         $usuario->loguearse($user, $pass);
         if ($usuario->objetos != null) {
-            /* Reflejamos los datos */
             foreach ($usuario->objetos as $objeto) {
                 $_SESSION['id'] = $objeto->id;
                 $_SESSION['user'] = $objeto->usuario;
@@ -37,8 +36,23 @@ if (isset($_POST['funcion'])) {
         } else {
             echo '';
         }
+    } elseif ($funcion == 'verificar_usuario') {
+        $username = $_POST['value'];
+        $usuario->verificar_usuario($username);
+        if ($usuario->objetos != null) {
+            echo "success";
+        }
+    } elseif ($funcion == "registrar_usuario") {
+        $user = $_POST['user'];
+        $pass = $_POST['pass'];
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
+        $dni = $_POST['dni'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $usuario->registrar_usuario($user,$pass,$nombres,$apellidos,$dni,$email,$telefono);
+        echo "success";
     }
 } else {
     echo "No se ha definido la función.";
 }
-?>
