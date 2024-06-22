@@ -2,41 +2,42 @@
   include_once 'Layouts/general/header.php';
 ?>
 <!-- Modal -->
-<div  id="modal_direcciones" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar dirección</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="form-direccion">
-          <div class="form-group">
-            <label>Estado:</label>
-            <select id="estado" class="form-control" style="width: 100%;" required></select>
-          </div>
-          <div class="form-group">
-            <label>Municipio:</label>
-            <select id="municipio" class="form-control" style="width: 100%;" required></select>
-          </div>
-          <div class="form-group">
-            <label>Dirección:</label>
-            <input id="direccion" type="text" class="form-control" placeholder="Ingrese su dirección" required>
-          </div>
-          <div class="form-group">
-            <label>Referencia:</label>
-            <input id="referencia" type="text" class="form-control" placeholder="Ingrese alguna referencia">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary" form="form-direccion">Crear</button>
-      </div>
+<div id="modal_direcciones" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar dirección</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-direccion">
+                    <div class="form-group">
+                        <label>Estado:</label>
+                        <select id="estado" class="form-control" required style="width:100%"></select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Municipio:</label>
+                        <select id="municipio" class="form-control" required style="width:100%">
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Dirección:</label>
+                        <input id="direccion" type="text" class="form-control" placeholder="Ingrese su dirección" required>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Referencia:</label>
+                        <input id="referencia" type="text" class="form-control" placeholder="Ingrese alguna referencia">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" form="form-direccion">Crear</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-<!-- Modal -->
+<!--Modal -->
   <title>Mi perfil</title>
 
 <section class="content">
@@ -112,7 +113,7 @@
                 <div class="card-header border-bottom-0">
                   <strong>Mis direcciones de envio</strong>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-bs-toggle="modal" data-bs-target="#my_modal">
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#modal_direcciones">
                       <i class="fas fa-plus"></i>
                     </button>
                   </div>

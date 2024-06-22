@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     $('#municipio').select2({
-        placeholder: "Seleccione un departamento",
+        placeholder: "Seleccione un municipio",
         language:{
             noResults : function(){
                 return "No hay resultado";
