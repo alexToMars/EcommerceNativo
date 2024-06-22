@@ -1,83 +1,163 @@
 <?php
   include_once 'Layouts/general/header.php';
 ?>
+<!-- Modal -->
+<div  id="modal_direcciones" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar dirección</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-direccion">
+          <div class="form-group">
+            <label>Estado:</label>
+            <select id="estado" class="form-control" style="width: 100%;" required></select>
+          </div>
+          <div class="form-group">
+            <label>Municipio:</label>
+            <select id="municipio" class="form-control" style="width: 100%;" required></select>
+          </div>
+          <div class="form-group">
+            <label>Dirección:</label>
+            <input id="direccion" type="text" class="form-control" placeholder="Ingrese su dirección" required>
+          </div>
+          <div class="form-group">
+            <label>Referencia:</label>
+            <input id="referencia" type="text" class="form-control" placeholder="Ingrese alguna referencia">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" form="form-direccion">Crear</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
   <title>Mi perfil</title>
 
 <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
-                       alt="User profile picture">
+            <div class="card card-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-info">
+                <h3 id="username" class="widget-user-username"></h3>
+                <h5 id="tipo_usuario" class="widget-user-desc"></h5>
+              </div>
+              <div class="widget-user-image">
+                <img id="avatar_perfil" class="img-circle elevation-2"  alt="User Avatar">
+              </div>
+              <div class="card-footer">
+                <div class="row">
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">3,200</h5>
+                      <span class="description-text">SALES</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header">13,000</h5>
+                      <span class="description-text">FOLLOWERS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4">
+                    <div class="description-block">
+                      <h5 class="description-header">35</h5>
+                      <span class="description-text">PRODUCTS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
                 </div>
-
-                <h3 class="profile-username text-center">Nina Mcintire</h3>
-
-                <p class="text-muted text-center">Software Engineer</p>
-
-                <ul class="list-group list-group-unbordered mb-3">
-                  <li class="list-group-item">
-                    <b>Followers</b> <a class="float-right">1,322</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Following</b> <a class="float-right">543</a>
-                  </li>
-                  <li class="list-group-item">
-                    <b>Friends</b> <a class="float-right">13,287</a>
-                  </li>
-                </ul>
-
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <!-- /.row -->
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
             <!-- About Me Box -->
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">About Me</h3>
+            <div class="card card-light">
+                <div class="card-header border-bottom-0">
+                  <strong>Mis datos personales</strong>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool">
+                      <i class="fas fa-pencil"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body pt-0 mt-3">
+                  <div class="row">
+                    <div class="col-8">
+                      <h2 id="nombres" class="lead"><b></b></h2>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-address-card"></i></span>DNI: <span id="dni"></span> </li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-at"></i></span>Email: <span id="email"></span></li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>Telefono: <span id="telefono"></span></li>
+                      </ul>
+                    </div>
+                    <div class="col-4 text-center">
+                      <img src="../Util/img/datos.png" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <strong><i class="fas fa-book mr-1"></i> Education</strong>
-
-                <p class="text-muted">
-                  B.S. in Computer Science from the University of Tennessee at Knoxville
-                </p>
-
-                <hr>
-
-                <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
-
-                <p class="text-muted">Malibu, California</p>
-
-                <hr>
-
-                <strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
-
-                <p class="text-muted">
-                  <span class="tag tag-danger">UI Design</span>
-                  <span class="tag tag-success">Coding</span>
-                  <span class="tag tag-info">Javascript</span>
-                  <span class="tag tag-warning">PHP</span>
-                  <span class="tag tag-primary">Node.js</span>
-                </p>
-
-                <hr>
-
-                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
-
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            <div class="card card-light">
+                <div class="card-header border-bottom-0">
+                  <strong>Mis direcciones de envio</strong>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-bs-toggle="modal" data-bs-target="#my_modal">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body pt-0 mt-3">
+                  <div class="row">
+                    <div class="col-8">
+                      <h2 class="lead"><b>Nicole Pearson</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                      </ul>
+                    </div>
+                    <div class="col-4 text-center">
+                      <img src="../Util/img/ubicacion.png" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
               </div>
-              <!-- /.card-body -->
-            </div>
+            <div class="card card-light">
+                <div class="card-header border-bottom-0">
+                  <strong>Mis tarjetas de pago</strong>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body pt-0 mt-3">
+                  <div class="row">
+                    <div class="col-8">
+                      <h2 class="lead"><b>Nicole Pearson</b></h2>
+                      <p class="text-muted text-sm"><b>About: </b> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address: Demo Street 123, Demo City 04312, NJ</li>
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                      </ul>
+                    </div>
+                    <div class="col-4 text-center">
+                      <img src="../Util/img/tarjeta.png" alt="user-avatar" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                </div>
+              </div>
             <!-- /.card -->
           </div>
           <!-- /.col -->

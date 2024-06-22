@@ -52,6 +52,22 @@ if (isset($_POST['funcion'])) {
         $telefono = $_POST['telefono'];
         $usuario->registrar_usuario($user,$pass,$nombres,$apellidos,$dni,$email,$telefono);
         echo "success";
+    } elseif ($funcion == "obtener_datos") {
+        $usuario ->obtener_datos($_SESSION['id']);
+        foreach($usuario->objetos as $objeto){
+            $json[]=array(
+                'username' => $objeto->usuario,
+                'nombres' => $objeto->nombres,
+                'apellidos' => $objeto->apellidos,
+                'dni' => $objeto->dni,
+                'email' =>$objeto-> email,
+                'telefono' => $objeto->telefono,
+                'avatar'=> $objeto->avatar,
+                'tipo_usuario' => $objeto->tipo,
+            );
+            $jsonstring = json_encode($json[0]);
+            echo $jsonstring;
+        }
     }
 } else {
     echo "No se ha definido la función.";

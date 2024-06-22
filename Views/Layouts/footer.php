@@ -20,6 +20,7 @@
 <script src="Util/js/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="Util/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- AdminLTE App -->
 <script src="Util/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
