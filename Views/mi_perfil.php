@@ -2,7 +2,7 @@
   include_once 'Layouts/general/header.php';
 ?>
 <!-- Modal -->
-<div id="modal_direcciones" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modal_direcciones" class="modal fade" role="dialog" style="overflow:hidden;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

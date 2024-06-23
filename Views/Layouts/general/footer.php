@@ -28,5 +28,6 @@
 <script src="../Util/js/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../Util/js/select2.min.js"></script>
+<script src="../Util/js/sweetalert2.min.js"></script>
 </body>
 </html>
