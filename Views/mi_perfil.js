@@ -3,6 +3,7 @@ $(document).ready(function() {
     verificar_sesion();
     obtener_datos();
     llenar_estados();
+    llenar_direcciones();
 
     $('#estado').select2({
         placeholder : "Seleccione un estado",
@@ -28,6 +29,76 @@ $(document).ready(function() {
         }
     });
 
+    $("#estado").change(function() {
+        let id_estado = $('#estado').val();
+        funcion = "llenar_municipios";
+        $.post("../Controllers/MunicipiosController.php", { funcion, id_estado }, function(response) {
+            let municipios = JSON.parse(response);
+            let template = '';
+            municipios.forEach(municipio => {
+                template += `<option value="${municipio.id}">${municipio.municipio}</option>`;
+            });
+            $('#municipio').html(template);
+        });
+    });
+
+    $(document).on('click','.eliminar_direccion', (e)=>{
+            let elemento = $(this)[0].activeElement;
+            let id = $(elemento).attr('dir_id');
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                  confirmButton: "btn btn-success m-3",
+                  cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+              });
+              swalWithBootstrapButtons.fire({
+                title: "Desea borrar esta direccion?",
+                text: "Esta accion puede traer consecuencias!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Si, borra esto!",
+                cancelButtonText: "No, deseo cancelar!",
+                reverseButtons: true
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    funcion = "eliminar_direccion";
+                    $.post('../Controllers/UsuarioMunicipioController.php', { funcion,id}, function(response) {
+                        if(response =="success"){
+                            swalWithBootstrapButtons.fire({
+                                title: "Borrado!",
+                                text: "La direccion fue borrada.",
+                                icon: "success"
+                            });
+                            llenar_direcciones();
+                        }else if (response == "error"){
+                            swalWithBootstrapButtons.fire({
+                                title: "Hubo un error",
+                                text: "Hubo alteraciones en la integridad de datos",
+                                icon: "error"
+                              });
+                        }else{
+                            swalWithBootstrapButtons.fire({
+                                title: "Hubo un error",
+                                text: "Tenemos problemas en el sistema",
+                                icon: "error"
+                            });
+                        }
+                    })
+                    /*
+                    */
+                }
+                else if (result.dismiss === Swal.DismissReason.cancel) {
+                  swalWithBootstrapButtons.fire({
+                    title: "Cancelado",
+                    text: "La dirección no se borro",
+                    icon: "error"
+                  });
+                }
+              });
+        }
+    )
+
     function llenar_estados() {
         funcion = "llenar_estados";
         $.post('../Controllers/EstadosController.php', { funcion }, function(response) {
@@ -41,18 +112,41 @@ $(document).ready(function() {
         });
     }
 
-    $("#estado").change(function() {
-        let id_estado = $('#estado').val();
-        funcion = "llenar_municipios";
-        $.post("../Controllers/MunicipiosController.php", { funcion, id_estado }, function(response) {
-            let municipios = JSON.parse(response);
+    function llenar_direcciones(){
+        funcion = "llenar_direcciones";
+        $.post('../Controllers/UsuarioMunicipioController.php', { funcion }, function(response) {
+            console.log(response);
+            let direcciones = JSON.parse(response);
             let template = '';
-            municipios.forEach(municipio => {
-                template += `<option value="${municipio.id}">${municipio.municipio}</option>`;
+            let contador = 0;
+            direcciones.forEach(direccion => {
+                contador++;
+                template += `
+                <div class="callout callout-info">
+                    <div class="card-header">
+                        <strong>Direccion ${contador}</strong>
+                        <div class="card-tools">
+                            <button dir_id="${direccion.id}" type="button" class="eliminar_direccion btn btn-tool">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <h2 class="lead"><b>${direccion.direccion}</b></h2>
+                      <p class="text-muted text-sm"><b>Referencia: ${direccion.referencia}</b></p>
+                      <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small">
+                          <span class="fa-li"><i class="fas fa-lg fa-building"></i></span>
+                          ${direccion.municipio} , ${direccion.estado}
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+                `;
             });
-            $('#municipio').html(template);
+            $('#direcciones').html(template);
         });
-    });
+    }
 
     function verificar_sesion() {
         funcion = 'verificar_sesion';
