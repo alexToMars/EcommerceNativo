@@ -171,8 +171,8 @@ $(document).ready(function() {
                 $('#nav_login').hide();
                 $('#nav_register').hide();
                 $('#usuario_nav').text(session.user);
-                $('#avatar_nav').attr('src','../Util/img/'+session.avatar);
-                $('#avatar_menu').attr('src','../Util/img/'+session.avatar);
+                $('#avatar_nav').attr('src','../Util/img/Users/'+session.avatar);
+                $('#avatar_menu').attr('src','../Util/img/Users/'+session.avatar);
                 $('#usuario_menu').text(session.user);
             } else {
                 $('#nav_usuario').hide();
@@ -188,7 +188,7 @@ $(document).ready(function() {
             $('#username').text(usuario.username);
             $('#tipo_usuario').text(usuario.tipo_usuario);
             $('#nombres').text(usuario.nombres+' '+usuario.apellidos);
-            $('#avatar_perfil').attr('src','../Util/img/' + usuario.avatar);
+            $('#avatar_perfil').attr('src','../Util/img/Users/' + usuario.avatar);
             $('#dni').text(usuario.dni);
             $('#email').text(usuario.email);
             $('#telefono').text(usuario.telefono);
@@ -234,13 +234,36 @@ $(document).ready(function() {
     $.validator.setDefaults({
         submitHandler: function () {
             funcion = "editar_datos";
-            let nombres = $('#nombres_mod').val();
-            let apellidos = $('#apellidos_mod').val();
-            let email = $('#email_mod').val();
-            let dni = $('#dni_mod').val();
-            let telefono = $('#telefono_mod').val();
-            $.post('../Controllers/UsuarioController.php', { funcion , nombres , apellidos , email , dni , telefono }, (response) =>{
-                obtener_datos();
+            let datos = new FormData($('#form-datos')[0]);
+            datos.append("funcion",funcion);
+            $.ajax({
+                type : "POST",
+                url : '../Controllers/UsuarioController.php',
+                data : datos,
+                cache : false,
+                processData : false,
+                contentType : false,
+                success : function (response) {
+                    console.log(response);
+                    if(response == 'Sucess'){
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Se ha registrado exitosamente",
+                            showConfirmButton: false,
+                            timer: 1000
+                          }).then(function(){
+                            verificar_sesion();
+                            obtener_datos();
+                          });
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            text: "Hubo error al editar sus datos, contactese con el area de sistemas",
+                          });
+                    }
+                }
             })
         }
     });

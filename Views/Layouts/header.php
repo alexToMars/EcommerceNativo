@@ -139,7 +139,7 @@
       </li>
       <li class="nav-item dropdown" id="nav_usuario">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="Util/img/user_default.png" width="30" height="30" class="img-fluid img-circle" id="avatar_nav">
+                <img src="Util/img/Users/user_default.png" width="30" height="30" class="img-fluid img-circle" id="avatar_nav">
                 <span id="usuario_nav">Usuario logeado</span>
               </a>
               <ul class="dropdown-menu">

@@ -12,8 +12,8 @@ $(document).ready(function() {
                 $('#nav_login').hide();
                 $('#nav_register').hide();
                 $('#usuario_nav').text(session.user)
-                $('#avatar_nav').attr('src','Util/img/'+session.avatar);
-                $('#avatar_menu').attr('src','Util/img/'+session.avatar);
+                $('#avatar_nav').attr('src','Util/img/Users/'+session.avatar);
+                $('#avatar_menu').attr('src','Util/img/Users/'+session.avatar);
                 $('#usuario_menu').text(session.user);
             }
             else{

@@ -70,13 +70,29 @@ if (isset($_POST['funcion'])) {
         }
     } else if($funcion == 'editar_datos'){
         $user_id = $_SESSION['id'];
-        $nombres = $_POST['nombres'];
-        $apellidos = $_POST['apellidos'];
-        $dni = $_POST['dni'];
-        $email = $_POST['email'];
-        $telefono = $_POST['telefono'];
-        $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono);
-        echo 'Success';
+        $nombres = $_POST['nombres_mod'];
+        $apellidos = $_POST['apellidos_mod'];
+        $dni = $_POST['dni_mod'];
+        $email = $_POST['email_mod'];
+        $telefono = $_POST['telefono_mod'];
+        $avatar = $_FILES['avatar_mod']['name'];
+        if($avatar != ''){
+            $nombre =uniqid().'-'.$avatar;
+            $ruta = '../Util/img/Users/'.$nombre;
+            move_uploaded_file($_FILES['avatar_mod']['tmp_name'],$ruta);
+            $usuario->obtener_datos($user_id);
+            foreach($usuario->objetos as $objeto){
+                $avatar_actual = $objeto->avatar;
+                if($avatar_actual!='user_default.png'){
+                    unlink('../Util/img/Users/'.$avatar_actual);
+                }
+            }
+            $_SESSION['avatar'] = $nombre;
+        }else{
+            $nombre= '';
+        }
+        $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono,$nombre);
+        echo "Sucess";
     }
 } else {
     echo "No se ha definido la función.";
