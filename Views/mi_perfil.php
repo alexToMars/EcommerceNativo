@@ -2,6 +2,55 @@
   include_once 'Layouts/general/header.php';
 ?>
 <!-- Modal -->
+<div id="modal_datos" class="modal fade" role="dialog" style="overflow:hidden;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editas datos personales</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-datos" enctype="multipart/form-data">
+                  <div class="form-group">
+                    <label for="nombres_mod">Nombres</label>
+                    <input type="text" name="nombres_mod" class="form-control" id="nombres_mod" placeholder="Ingrese nombres">
+                  </div>
+                  <div class="form-group">
+                    <label for="apellidos_mod">Apellidos</label>
+                    <input type="text" name="apellidos_mod" class="form-control" id="apellidos_mod" placeholder="Ingrese apellidos">
+                  </div>
+                  <div class="form-group">
+                    <label for="dni_mod">DNI:</label>
+                    <input type="text" name="dni_mod" class="form-control" id="dni_mod" placeholder="Ingrese DNI">
+                  </div>
+                  <div class="form-group">
+                    <label for="email_mod">Email:</label>
+                    <input type="text" name="email_mod" class="form-control" id="email_mod" placeholder="Ingrese email">
+                  </div>
+                  <div class="form-group">
+                    <label for="telefono_mod">Telefono:</label>
+                    <input type="text" name="telefono_mod" class="form-control" id="telefono_mod" placeholder="Ingrese telefono">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Avatar</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input name="avatar_mod" type="file" class="custom-file-input" id="avatar_mod">
+                        <label class="custom-file-label" for="exampleInputFile">Seleccione un avatar</label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" form="form-datos">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal -->
+<!-- Modal -->
 <div id="modal_direcciones" class="modal fade" role="dialog" style="overflow:hidden;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -88,7 +137,7 @@
                 <div class="card-header border-bottom-0">
                   <strong>Mis datos personales</strong>
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool">
+                    <button data-bs-toggle="modal" data-bs-target="#modal_datos" type="button" class="editar_datos btn btn-tool">
                       <i class="fas fa-pencil"></i>
                     </button>
                   </div>

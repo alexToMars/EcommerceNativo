@@ -16,14 +16,12 @@ $(document).ready(function() {
         let user = $('#user').val();
         let password = $('#pass').val();
         
-        // Crear un objeto con los datos a enviar
         let data = {
             funcion: funcion,
             user: user,
             password: password
         };
         
-        // Enviar la solicitud POST con los datos correctos
         $.post('../Controllers/UsuarioController.php', data, function(response) {
             if(response == 'logueado'){
                 toastr.success("* Logueado !");

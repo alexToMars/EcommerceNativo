@@ -40,4 +40,11 @@
             $this->objetos =$query->fetchAll();
             return $this->objetos;
         }
+
+        function editar_datos($user_id,$nombres,$apellidos,$dni,$email,$telefono){
+            $sql = "UPDATE usuario SET nombres=:nombres, apellidos=:apellidos, dni=:dni, email=:email, telefono=:telefono WHERE id=:id_usuario";
+            $query = $this->acceso->prepare($sql);
+            $query -> execute(array(":nombres"=>$nombres,":apellidos"=>$apellidos,":dni"=>$dni,":email"=>$email,":telefono"=>$telefono,":id_usuario"=>$user_id));
+            return $query->rowCount();
+        }
     }

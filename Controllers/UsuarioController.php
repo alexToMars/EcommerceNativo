@@ -68,6 +68,15 @@ if (isset($_POST['funcion'])) {
             $jsonstring = json_encode($json[0]);
             echo $jsonstring;
         }
+    } else if($funcion == 'editar_datos'){
+        $user_id = $_SESSION['id'];
+        $nombres = $_POST['nombres'];
+        $apellidos = $_POST['apellidos'];
+        $dni = $_POST['dni'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
+        $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono);
+        echo 'Success';
     }
 } else {
     echo "No se ha definido la función.";

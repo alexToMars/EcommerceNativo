@@ -1,5 +1,6 @@
 $(document).ready(function() {
     var funcion;
+    bsCustomFileInput.init();
     verificar_sesion();
     obtener_datos();
     llenar_estados();
@@ -99,6 +100,18 @@ $(document).ready(function() {
         }
     )
 
+    $(document).on('click','.editar_datos', (e) =>{
+        funcion = "obtener_datos";
+        $.post('../Controllers/UsuarioController.php', {funcion}, (response) => {
+            let usuario = JSON.parse(response);
+            $("#nombres_mod").val(usuario.nombres);
+            $("#apellidos_mod").val(usuario.apellidos);
+            $("#dni_mod").val(usuario.dni);
+            $("#email_mod").val(usuario.email);
+            $("#telefono_mod").val(usuario.telefono);
+        })
+    })
+
     function llenar_estados() {
         funcion = "llenar_estados";
         $.post('../Controllers/EstadosController.php', { funcion }, function(response) {
@@ -115,7 +128,6 @@ $(document).ready(function() {
     function llenar_direcciones(){
         funcion = "llenar_direcciones";
         $.post('../Controllers/UsuarioMunicipioController.php', { funcion }, function(response) {
-            console.log(response);
             let direcciones = JSON.parse(response);
             let template = '';
             let contador = 0;
@@ -144,6 +156,7 @@ $(document).ready(function() {
                 </div>
                 `;
             });
+            //#direccion tratandose de un contenedor (div) puesto anteriormente en nuestra vista
             $('#direcciones').html(template);
         });
     }
@@ -214,5 +227,95 @@ $(document).ready(function() {
             }
         });
         
+        
     });
+    //Validaciones
+    // Configuración de jQuery Validator
+    $.validator.setDefaults({
+        submitHandler: function () {
+            funcion = "editar_datos";
+            let nombres = $('#nombres_mod').val();
+            let apellidos = $('#apellidos_mod').val();
+            let email = $('#email_mod').val();
+            let dni = $('#dni_mod').val();
+            let telefono = $('#telefono_mod').val();
+            $.post('../Controllers/UsuarioController.php', { funcion , nombres , apellidos , email , dni , telefono }, (response) =>{
+                obtener_datos();
+            })
+        }
+    });
+
+    // Método personalizado para letras
+    jQuery.validator.addMethod("letras",
+        function(value, element) {
+            return /^[A-Za-z\sáéíóúÁÉÍÓÚ]+$/.test(value); // Permite letras, espacios y acentos
+        },
+        "Este campo solo permite letras"
+    );
+
+    // Validación del formulario
+    $('#form-datos').validate({
+        rules: {
+            nombres_mod: {
+                required: true,
+                letras: true
+            },
+            apellidos_mod: {
+                required: true,
+                letras: true
+            },
+            email_mod: {
+                required: true,
+                email: true
+            },
+            dni_mod: {
+                required: true,
+                digits: true,
+                minlength: 8,
+                maxlength: 8
+            },
+            telefono_mod: {
+                required: true,
+                digits: true,
+                minlength: 8,
+                maxlength: 14
+            }
+        },
+        messages: {
+            nombres_mod: {
+                required: "Este campo es obligatorio"
+            },
+            apellidos_mod: {
+                required: "Este campo es obligatorio"
+            },
+            email_mod: {
+                required: "Este campo es obligatorio",
+                email: "Ingresa una dirección válida"
+            },
+            dni_mod: {
+                required: "Este campo es obligatorio",
+                minlength: "El DNI debe tener exactamente 8 dígitos",
+                maxlength: "El DNI debe tener exactamente 8 dígitos",
+                digits: "El DNI solo puede contener números"
+            },
+            telefono_mod: {
+                required: "Este campo es obligatorio",
+                digits: "El teléfono solo puede contener números",
+                minlength: "El teléfono debe tener al menos 8 dígitos",
+                maxlength: "El teléfono debe tener como máximo 14 dígitos"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-valid').addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid').addClass('is-valid');
+        }
+    });
+
 });
