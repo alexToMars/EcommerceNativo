@@ -2,6 +2,38 @@
   include_once 'Layouts/general/header.php';
 ?>
 <!-- Modal -->
+<div id="modal_contra" class="modal fade" role="dialog" style="overflow:hidden;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Cambiar password</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-contra">
+                  <div class="form-group">
+                    <label for="pass_old">Ingrese password actual</label>
+                    <input type="password" name="pass_old" class="form-control" id="pass_old" placeholder="Password anterior">
+                  </div>
+                  <div class="form-group">
+                    <label for="pass_new">Ingrese nuevo password</label>
+                    <input type="password" name="pass_new" class="form-control" id="pass_new" placeholder="Ingrese nuevo password">
+                  </div>
+                  <div class="form-group">
+                    <label for="pass_repeat">Repita la nueva password</label>
+                    <input type="password" name="pass_repeat" class="form-control" id="pass_repeat" placeholder="Repita la password">
+                  </div>  
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" form="form-contra">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal -->
+<!-- Modal -->
 <div id="modal_datos" class="modal fade" role="dialog" style="overflow:hidden;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -156,6 +188,9 @@
                       <img src="../Util/img/datos.png" alt="user-avatar" class="img-circle img-fluid">
                     </div>
                   </div>
+                </div>
+                <div class="card-footer">
+                  <button class="btn btn-warning btn-block" data-bs-toggle="modal" data-bs-target="#modal_contra">Cambiar password</button>
                 </div>
               </div>
             <div class="card card-light">

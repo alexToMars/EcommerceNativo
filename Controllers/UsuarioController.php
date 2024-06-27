@@ -21,7 +21,18 @@ if (isset($_POST['funcion'])) {
         } else {
             echo 'Usuario o contraseña incorrectos';
         }
-    } elseif ($funcion == 'listar_usuario') {
+    }elseif ($funcion == "cambiar_contra") {
+        $user_id = $_SESSION['id'];
+        $pass_old = $_POST['pass_old'];
+        $pass_new = $_POST['pass_new'];
+        $usuario->comprobar_pass($user_id,$pass_old);
+        if(!empty($usuario->objetos)){
+            $usuario ->cambiar_pass($user_id,$pass_new);
+            echo 'Success';
+        }else{
+            echo 'Error';
+        }
+    }elseif ($funcion == 'listar_usuario') {
         echo "Listar usuarios";
     } elseif ($funcion == 'verificar_sesion') {
         if (!empty($_SESSION['id'])) {
@@ -93,7 +104,7 @@ if (isset($_POST['funcion'])) {
         }
         $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono,$nombre);
         echo "Sucess";
-    }
+    } 
 } else {
     echo "No se ha definido la función.";
 }

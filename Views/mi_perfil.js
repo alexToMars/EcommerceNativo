@@ -164,10 +164,8 @@ $(document).ready(function() {
     function verificar_sesion() {
         funcion = 'verificar_sesion';
         $.post('../Controllers/UsuarioController.php', { funcion }, function(response) {
-            console.log(response);
             if (response != '') {
                 let session = JSON.parse(response);
-                console.log(session);
                 $('#nav_login').hide();
                 $('#nav_register').hide();
                 $('#usuario_nav').text(session.user);
@@ -244,7 +242,6 @@ $(document).ready(function() {
                 processData : false,
                 contentType : false,
                 success : function (response) {
-                    console.log(response);
                     if(response == 'Sucess'){
                         Swal.fire({
                             position: "center",
@@ -340,5 +337,68 @@ $(document).ready(function() {
             $(element).removeClass('is-invalid').addClass('is-valid');
         }
     });
-
+    $.validator.setDefaults({
+        submitHandler: function () {
+            funcion = "cambiar_contra";
+            let pass_old = $('#pass_old').val();
+            let pass_new = $('#pass_new').val();
+            $.post('../Controllers/UsuarioController.php',{funcion, pass_old, pass_new},(response)=>{
+                console.log(response);
+            })
+        }
+    });
+    jQuery.validator.addMethod("letras",
+        function (value, element) {
+            return /^[A-Za-z\sáéíóúÁÉÍÓÚ]+$/.test(value); // Permite letras, espacios y acentos
+        },
+        "Este campo solo permite letras"
+    );
+    $('#form-contra').validate({
+        rules: {
+            pass_old: {
+                required: true,
+                minlength: 8,
+                maxlength: 20
+            },
+            pass_new: {
+                required: true,
+                minlength: 8,
+                maxlength: 20
+            },
+            pass_repeat: {
+                required: true,
+                equalTo : "#pass_new"
+            },
+        },
+        messages: {
+           
+            pass_old: {
+                required: "Este campo es obligatorio",
+                minlength: "* La password debe ser de minimo 8 caracteres",
+                maxlength: "* La password como maximo debe tener 20 caracteres",
+            },
+            pass_new: {
+                required: "Este campo es obligatorio",
+                minlength: "* La password debe ser de minimo 8 caracteres",
+                maxlength: "* La password como maximo debe tener 20 caracteres",
+            },
+            pass_repeat: {
+                required: "Este campo es obligatorio",
+                equalTo: "*Las passwords no coinciden",
+            },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-valid');
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+            $(element).addClass('is-valid');
+        }
+    });
 });

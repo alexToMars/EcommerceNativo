@@ -53,4 +53,17 @@
             }
             return $query->rowCount();
         }
+        function comprobar_pass($user_id,$pass_old){
+            $sql = "SELECT*FROM usuario WHERE id=:user_id AND password=:pass_old";
+            $query = $this->acceso->prepare($sql);
+            $query -> execute(array(':user_id'=>$user_id, ":pass_old"=>$pass_old));
+            $this->objetos =$query->fetchAll();
+            return $this->objetos;
+        }
+        function cambiar_pass($user_id,$pass_new){
+            $sql = "UPDATE usuario SET password=:pass WHERE id=:id_usuario";
+            $query = $this->acceso->prepare($sql);
+            $query -> execute(array(":id_usuario"=>$user_id,":pass"=>$pass_new));
+            return $query->rowCount();
+        }
     }

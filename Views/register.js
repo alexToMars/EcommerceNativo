@@ -10,7 +10,7 @@ $(document).ready(function (){
               location.href = '../index.php';
           }
       });
-  }
+    }
       $.validator.setDefaults({
         submitHandler: function () {
           $.post('../Controllers/UsuarioController.php', {
