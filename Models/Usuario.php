@@ -8,15 +8,6 @@
             $db = new Conexion();
             $this ->acceso = $db->pdo;
         }
-
-        function loguearse ($user,$pass){
-            //$sql = "SELECT*FROM usuario JOIN tipo_usuario ON id_tipo= tipo_usuario.id WHERE usuario=:user AND password=:pass";
-            $sql = "SELECT*FROM usuario WHERE usuario=:user AND password=:pass";
-            $query = $this->acceso->prepare($sql);
-            $query -> execute(array(':user'=>$user,':pass'=>$pass));
-            $this->objetos =$query->fetchAll();
-            return $this->objetos;
-        }
         function verificar_usuario($user){
             $sql = "SELECT*FROM usuario WHERE usuario=:user";
             $query = $this->acceso->prepare($sql);
@@ -52,13 +43,6 @@
                 $query -> execute(array(":nombres"=>$nombres,":apellidos"=>$apellidos,":dni"=>$dni,":email"=>$email,":telefono"=>$telefono,":id_usuario"=>$user_id));
             }
             return $query->rowCount();
-        }
-        function comprobar_pass($user_id,$pass_old){
-            $sql = "SELECT*FROM usuario WHERE id=:user_id AND password=:pass_old";
-            $query = $this->acceso->prepare($sql);
-            $query -> execute(array(':user_id'=>$user_id, ":pass_old"=>$pass_old));
-            $this->objetos =$query->fetchAll();
-            return $this->objetos;
         }
         function cambiar_pass($user_id,$pass_new){
             $sql = "UPDATE usuario SET password=:pass WHERE id=:id_usuario";

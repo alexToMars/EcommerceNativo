@@ -21,9 +21,10 @@ $(document).ready(function (){
             apellidos: $('#apellidos').val(),
             dni: $('#dni').val(),
             email: $('#email').val(),
-            telefono: $('#telefono').val()
+            telefono: $('#telefono').val(),
           }, (response) => {
             reponse = response.trim();
+            console.log(response);
             if(response == 'success'){
               Swal.fire({
                 position: "center",

@@ -23,6 +23,7 @@ $(document).ready(function() {
         };
         
         $.post('../Controllers/UsuarioController.php', data, function(response) {
+            console.log(response);
             if(response == 'logueado'){
                 toastr.success("* Logueado !");
                 location.href = '../index.php';

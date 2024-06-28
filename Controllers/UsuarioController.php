@@ -9,29 +9,34 @@ if (isset($_POST['funcion'])) {
     if ($funcion == 'login') {
         $user = $_POST['user'];
         $pass = $_POST['password'];
-        $usuario->loguearse($user, $pass);
-        if ($usuario->objetos != null) {
-            foreach ($usuario->objetos as $objeto) {
-                $_SESSION['id'] = $objeto->id;
-                $_SESSION['user'] = $objeto->usuario;
-                $_SESSION['tipo_usuario'] = $objeto->id_tipo;
-                $_SESSION['avatar'] = $objeto->avatar;
-            }
+        $usuario->verificar_usuario($user);
+        $pass_verify = $usuario->objetos[0]->password;
+        $pass_encrypt= openssl_encrypt($pass,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
+        if ($pass_verify == $pass_encrypt) {
+            $_SESSION['id'] = $usuario->objetos[0]->id;
+            $_SESSION['user'] = $usuario->objetos[0]->usuario;
+            $_SESSION['tipo_usuario'] = $usuario->objetos[0]->id_tipo;
+            $_SESSION['avatar'] = $usuario->objetos[0]->avatar;
             echo 'logueado';
         } else {
             echo 'Usuario o contraseña incorrectos';
         }
     }elseif ($funcion == "cambiar_contra") {
         $user_id = $_SESSION['id'];
+        $user= $_SESSION['user'];
         $pass_old = $_POST['pass_old'];
         $pass_new = $_POST['pass_new'];
-        $usuario->comprobar_pass($user_id,$pass_old);
-        if(!empty($usuario->objetos)){
-            $usuario ->cambiar_pass($user_id,$pass_new);
+        $usuario->verificar_usuario($user);
+        $pass_verify = $usuario->objetos[0]->password;
+        $pass_old_encrypt= openssl_encrypt($pass_old,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
+        $pass_new_encrypt = openssl_encrypt($pass_new,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
+        if ($pass_verify == $pass_old_encrypt){
+            $usuario ->cambiar_pass($user_id,$pass_new_encrypt);
             echo 'Success';
-        }else{
+        } else{
             echo 'Error';
         }
+        
     }elseif ($funcion == 'listar_usuario') {
         echo "Listar usuarios";
     } elseif ($funcion == 'verificar_sesion') {
@@ -56,12 +61,13 @@ if (isset($_POST['funcion'])) {
     } elseif ($funcion == "registrar_usuario") {
         $user = $_POST['user'];
         $pass = $_POST['pass'];
+        $pass_encrypt = openssl_encrypt($pass,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
         $nombres = $_POST['nombres'];
         $apellidos = $_POST['apellidos'];
         $dni = $_POST['dni'];
         $email = $_POST['email'];
         $telefono = $_POST['telefono'];
-        $usuario->registrar_usuario($user,$pass,$nombres,$apellidos,$dni,$email,$telefono);
+        $usuario->registrar_usuario($user,$pass_encrypt,$nombres,$apellidos,$dni,$email,$telefono);
         echo "success";
     } elseif ($funcion == "obtener_datos") {
         $usuario ->obtener_datos($_SESSION['id']);

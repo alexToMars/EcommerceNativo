@@ -343,7 +343,30 @@ $(document).ready(function() {
             let pass_old = $('#pass_old').val();
             let pass_new = $('#pass_new').val();
             $.post('../Controllers/UsuarioController.php',{funcion, pass_old, pass_new},(response)=>{
-                console.log(response);
+                console.log(response)
+                if(response == 'Success'){
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Se ha registrado cambiado la password",
+                        showConfirmButton: false,
+                        timer: 1000
+                      }).then(function(){
+                        $('#form-contra').trigger('reset')
+                      });
+                } else if(response == 'Error'){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Password incorrecto",
+                        text: "Ingrese su password actual para poder cambiarla",
+                      });
+                } else{
+                    Swal.fire({
+                        icon: "Error",
+                        title: "error",
+                        text: "Hubo conflicto al cambiar su password",
+                      });
+                }
             })
         }
     });
