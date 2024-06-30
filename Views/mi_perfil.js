@@ -196,7 +196,40 @@ $(document).ready(function() {
     function llenar_historial(){
         funcion = 'llenar_historial';
         $.post('../Controllers/HistorialController.php' , { funcion } , (response)=>{
-            console.log(response);
+            let historiales = JSON.parse(response);
+            let template = '';
+            historiales.forEach(historial =>{
+                template += `
+                    <div class="time-label">
+                        <span class="bg-danger">
+                            ${historial[0].fecha}
+                        </span>
+                    </div>
+                    `;
+                historial.forEach(cambio =>{
+                    template+=`
+                    <div>
+                        ${cambio.m_icono}
+
+                        <div class="timeline-item">
+                          <span class="time"><i class="far fa-clock"></i>${cambio.hora}</span>
+
+                          <h3 class="timeline-header">${cambio.th_icono} Se realizó la accion ${cambio.tipo_historial} en ${cambio.modulo}</h3>
+
+                          <div class="timeline-body">
+                            ${cambio.descripcion}
+                          </div>
+                        </div>
+                    </div>
+                    `;
+                });
+            });
+            template +=`
+            <div>
+                <i class="far fa-clock bg-gray"></i>
+            </div>
+            `;
+            $('#historiales').html(template);
         })
     }
 
@@ -207,11 +240,7 @@ $(document).ready(function() {
         let id_municipio = $('#municipio').val();
         let direccion = $('#direccion').val();
         let referencia = $('#referencia').val();
-        console.log(id_municipio);
-        console.log(direccion);
-        console.log(referencia);
         $.post('../Controllers/UsuarioMunicipioController.php', {funcion,id_municipio,direccion,referencia}, function(response) {
-            console.log(response);
             if(response == 'success'){
                 Swal.fire({
                   position: "center",
@@ -350,7 +379,6 @@ $(document).ready(function() {
             let pass_old = $('#pass_old').val();
             let pass_new = $('#pass_new').val();
             $.post('../Controllers/UsuarioController.php',{funcion, pass_old, pass_new},(response)=>{
-                console.log(response)
                 if(response == 'Success'){
                     Swal.fire({
                         position: "center",
