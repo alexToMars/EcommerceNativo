@@ -5,6 +5,7 @@ $(document).ready(function() {
     obtener_datos();
     llenar_estados();
     llenar_direcciones();
+    llenar_historial();
 
     $('#estado').select2({
         placeholder : "Seleccione un estado",
@@ -191,6 +192,12 @@ $(document).ready(function() {
             $('#email').text(usuario.email);
             $('#telefono').text(usuario.telefono);
         });
+    }
+    function llenar_historial(){
+        funcion = 'llenar_historial';
+        $.post('../Controllers/HistorialController.php' , { funcion } , (response)=>{
+            console.log(response);
+        })
     }
 
     $('#form-direccion').submit(function(e) {
