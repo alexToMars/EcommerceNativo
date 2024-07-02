@@ -1,0 +1,4 @@
+En la funcion llenar direcciones de mi perfil.js se ve la importancia de usar
+un id distintivo en ese caso dir_id en ese caso encriptado para
+que un usuario con intenciones maliciosas se le haga más complicado ejectuar acciones, 
+en borrar_direccion se ve como se usa ese dir_id

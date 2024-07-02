@@ -65,7 +65,8 @@ $(document).ready(function() {
               }).then((result) => {
                 if (result.isConfirmed) {
                     funcion = "eliminar_direccion";
-                    $.post('../Controllers/UsuarioMunicipioController.php', { funcion,id}, function(response) {
+                    $.post('../Controllers/UsuarioMunicipioController.php', { funcion,id}, (response) =>{
+                        console.log(response);
                         if(response =="success"){
                             swalWithBootstrapButtons.fire({
                                 title: "Borrado!",
@@ -73,6 +74,7 @@ $(document).ready(function() {
                                 icon: "success"
                             });
                             llenar_direcciones();
+                            llenar_historial();
                         }else if (response == "error"){
                             swalWithBootstrapButtons.fire({
                                 title: "Hubo un error",
@@ -251,6 +253,8 @@ $(document).ready(function() {
                 }).then(function(){
                   $('#form-direccion').trigger('reset');
                   $('#estado').val('').trigger('change');
+                  llenar_historial();
+                  llenar_direcciones();
                 });
             }else{
                 Swal.fire({

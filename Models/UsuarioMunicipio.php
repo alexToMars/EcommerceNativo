@@ -42,4 +42,18 @@ class UsuarioMunicipio {
         $query->execute(array(":id_usuario_municipio" => $id_usuario_municipio));
         return $query->rowCount();
     }
+
+    function recuperar_direccion($id_direccion){
+        $sql = "SELECT 
+                usuario_municipio.id id,
+                usuario_municipio.direccion, usuario_municipio.referencia ,
+                municipios.municipio , estados.estado
+                FROM usuario_municipio
+                JOIN municipios ON usuario_municipio.id_municipio = municipios.id
+                JOIN estados ON municipios.estado_id = estados.id WHERE usuario_municipio.id=:id_direccion AND usuario_municipio.estado='A'";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(":id_direccion"=> $id_direccion));
+        $this->objetos =$query->fetchAll();
+        return $this->objetos;
+    }
 }

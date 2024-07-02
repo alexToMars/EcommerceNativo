@@ -18,4 +18,12 @@
             $this -> objetos = $query->fetchAll();
             return $this->objetos;    
         }
+        public function crear_historial($descripcion,$id_tipo_historial,$id_modulo,$id_usuario){
+            $sql = "INSERT INTO historial(descripcion,id_tipo_historial,id_modulo,id_usuario) VALUES 
+            (:descripcion,:id_tipo,:id_modulo,:id_usuario)";
+            $query = $this->acceso -> prepare($sql);
+            $query ->execute(array(':descripcion'=>$descripcion, ':id_tipo'=>$id_tipo_historial , ':id_modulo'=> $id_modulo , ':id_usuario'=>$id_usuario));
+            $this -> objetos = $query->fetchAll();
+            return $this->objetos;    
+        }
     }

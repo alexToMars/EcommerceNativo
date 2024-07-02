@@ -1,5 +1,5 @@
 <?php
-  include_once 'Layouts/general/header.php';
+  include __DIR__ . '/Layouts/general/header.php';
 ?>
 <!-- Modal -->
 <div id="modal_contra" class="modal fade" role="dialog" style="overflow:hidden;">

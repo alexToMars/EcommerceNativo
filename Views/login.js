@@ -15,6 +15,7 @@ $(document).ready(function() {
         funcion = 'login';
         let user = $('#user').val();
         let password = $('#pass').val();
+        console.log(password);
         
         let data = {
             funcion: funcion,
