@@ -1,6 +1,12 @@
 <?php
 include_once ("../Models/Usuario.php");
+include_once ("../Models/Historial.php");
 $usuario = new Usuario();
+$historial = new Historial();
+const ID_MODULO = 1;
+const HISTORIAL_BORRAR = 3;
+const HISTORIAL_CREAR = 2;
+const HISTORIAL_EDITAR = 1;
 session_start();
 
 if (isset($_POST['funcion'])) {
@@ -93,23 +99,53 @@ if (isset($_POST['funcion'])) {
         $email = $_POST['email_mod'];
         $telefono = $_POST['telefono_mod'];
         $avatar = $_FILES['avatar_mod']['name'];
-        if($avatar != ''){
-            $nombre =uniqid().'-'.$avatar;
-            $ruta = '../Util/img/Users/'.$nombre;
-            move_uploaded_file($_FILES['avatar_mod']['tmp_name'],$ruta);
-            $usuario->obtener_datos($user_id);
-            foreach($usuario->objetos as $objeto){
-                $avatar_actual = $objeto->avatar;
-                if($avatar_actual!='user_default.png'){
-                    unlink('../Util/img/Users/'.$avatar_actual);
-                }
+        $usuario ->obtener_datos($user_id);
+        $datos_cambiados = "Ha hecho los siguientes cambios: ";
+        if($nombres!=$usuario->objetos[0]->nombres
+         || $apellidos!=$usuario->objetos[0]->apellidos
+         || $dni!=$usuario->objetos[0]->dni
+         || $email!=$usuario->objetos[0]->email
+         || $telefono!=$usuario->objetos[0]->telefono
+         || $avatar!=''
+         ){
+            if($nombres!=$usuario->objetos[0]->nombres){
+                $datos_cambiados.='Su nombre cambio de '.$usuario->objetos[0]->nombres.' a: '.$nombres.',';
             }
-            $_SESSION['avatar'] = $nombre;
+            if($apellidos!=$usuario->objetos[0]->apellidos){
+                $datos_cambiados.='Su apellido cambio de '.$usuario->objetos[0]->apellidos.' a: '.$apellidos.',';
+            }
+            if($dni!=$usuario->objetos[0]->dni){
+                $datos_cambiados.='Su DNI cambio de '.$usuario->objetos[0]->dni.' a: '.$dni.',';
+            }
+            if($email!=$usuario->objetos[0]->email){
+                $datos_cambiados.='Su email cambio de '.$usuario->objetos[0]->email.' a: '.$email.',';
+            }
+            if($telefono!=$usuario->objetos[0]->telefono){
+                $datos_cambiados.='Su telefono cambio de '.$usuario->objetos[0]->telefono.' a: '.$telefono.',';
+            }
+            if($avatar != ''){
+                $datos_cambiados.='Su avatar fue cambiado.';
+                $nombre =uniqid().'-'.$avatar;
+                $ruta = '../Util/img/Users/'.$nombre;
+                move_uploaded_file($_FILES['avatar_mod']['tmp_name'],$ruta);
+                $usuario->obtener_datos($user_id);
+                foreach($usuario->objetos as $objeto){
+                    $avatar_actual = $objeto->avatar;
+                    if($avatar_actual!='user_default.png'){
+                        unlink('../Util/img/Users/'.$avatar_actual);
+                    }
+                }
+                $_SESSION['avatar'] = $nombre;
+            }else{
+                $nombre= '';
+            }
+            $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono,$nombre);
+            $descripcion = "Ha editado sus datos personales , ".$datos_cambiados;
+            $historial ->crear_historial($descripcion,HISTORIAL_EDITAR,ID_MODULO,$user_id);
+            echo 'Success';
         }else{
-            $nombre= '';
+            echo 'Danger';
         }
-        $usuario -> editar_datos($user_id, $nombres, $apellidos, $dni, $email, $telefono,$nombre);
-        echo "Sucess";
     } 
 } else {
     echo "No se ha definido la función.";

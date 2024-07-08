@@ -282,7 +282,8 @@ $(document).ready(function() {
                 processData : false,
                 contentType : false,
                 success : function (response) {
-                    if(response == 'Sucess'){
+                    console.log(response);
+                    if(response == 'Success'){
                         Swal.fire({
                             position: "center",
                             icon: "success",
@@ -292,6 +293,13 @@ $(document).ready(function() {
                           }).then(function(){
                             verificar_sesion();
                             obtener_datos();
+                            llenar_historial();
+                          });
+                    }else if(response == 'Danger'){
+                        Swal.fire({
+                            icon: "warning",
+                            title: "No alteró ningun cambio",
+                            text: "Modifique algun cambio",
                           });
                     }else{
                         Swal.fire({
