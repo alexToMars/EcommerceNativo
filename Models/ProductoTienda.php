@@ -33,4 +33,15 @@
             $this->objetos =$query->fetchAll();
             return $this->objetos;
         }
+
+        function evaluarCalificaciones($id_producto_tienda){
+            $sql = "SELECT AVG(calificacion) as promedio
+            FROM resena r
+            WHERE r.id_producto_tienda = :id_producto_tienda
+            AND r.estado = 'A'";
+            $query = $this->acceso->prepare($sql);
+            $query -> execute(array(':id_producto_tienda'=>$id_producto_tienda));
+            $this->objetos =$query->fetchAll();
+            return $this->objetos;
+        }
     }
