@@ -65,7 +65,7 @@
           <h3 class="card-title">Productos</h3>
         </div>
         <div class="card-body">
-          <div class="row">
+          <div id="productos" class="row">
             <div class="col-sm-2">
               <div class="card">
                 <div class="card-body">
