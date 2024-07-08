@@ -399,7 +399,8 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1000
                       }).then(function(){
-                        $('#form-contra').trigger('reset')
+                        $('#form-contra').trigger('reset');
+                        llenar_historial();
                       });
                 } else if(response == 'Error'){
                     Swal.fire({

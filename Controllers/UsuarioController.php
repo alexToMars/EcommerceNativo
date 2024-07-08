@@ -37,7 +37,9 @@ if (isset($_POST['funcion'])) {
         $pass_old_encrypt= openssl_encrypt($pass_old,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
         $pass_new_encrypt = openssl_encrypt($pass_new,'AES-128-CBC' , "estelectronic", 0, '0001020304050607');
         if ($pass_verify == $pass_old_encrypt){
+            $descripcion = "Ha cambiado su password";
             $usuario ->cambiar_pass($user_id,$pass_new_encrypt);
+            $historial ->crear_historial($descripcion,HISTORIAL_EDITAR,ID_MODULO,$user_id);
             echo 'Success';
         } else{
             echo 'Error';
