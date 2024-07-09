@@ -42,11 +42,11 @@ $(document).ready(function() {
                         <div class="card-body">
                           <div class="row">
                             <div class="col-sm-12">
-                              <img src="https://0tk57mq4-443.usw3.devtunnels.ms/Proyecto_EcommerceNativo/Util/img/producto/${producto.imagen}" class="img-fluid centrarImagen">
+                              <img src="Util/img/producto/${producto.imagen}" class="img-fluid centrarImagen">
                             </div>
                             <div class="col-sm-12">
                               <span class="text-muted float-left">${producto.marca}</span><br>
-                              <a class="titulo_producto" href="#">${producto.producto}</a><br>`
+                              <a class="titulo_producto" href="Views/descripcion.php?name=${producto.producto}&&id=${producto.id}">${producto.producto}</a><br>`
                               if(producto.envio =='Gratis'){
                                 template +=`<span class="badge bg-success">Envio gratis</span><br>`;
                               } 
